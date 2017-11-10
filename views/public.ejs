@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<style>
+		body 		{ padding-top:80px; }
+	</style>
+</head>
+<body>
+	<% if (status.databaseConnected) { %> 
+		&#9745;
+	<% } else { %> 
+		&#9746;
+	<% } %>
+	&nbsp;Database connected<br>
+
+	<% if (status.tableLanguagesExists) { %> 
+		&#9745;
+	<% } else { %>
+		&#9746;
+	<% } %>
+	&nbsp;Table Languages exists<br>
+
+	<% if (status.tableWordsExists) { %> 
+		&#9745;
+	<% } else { %>
+		&#9746;
+	<% } %>
+	&nbsp;Table Words exists<br>
+</div>
+</body>
+</html>

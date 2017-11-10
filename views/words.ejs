@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<style>
+		body 		{ padding-top:80px; }
+	</style>
+</head>
+<body>
+	<form method="post" action="/word">
+		<input type="text" name='word' size="40">
+		<select name='language'>
+			<% if(languages!==null) { %>
+				<% for(var i=0; i<languages.length; i++) { %>
+			        <option>
+			            <%= languages[i].language %>
+			        </option>
+		    	<% } %>
+	    	<% } %>
+		</select>
+		<input type="submit" value="submit">
+	</form>
+	</br>
+	</br>
+	</br>
+	<% if(words!==null) { %>
+		<% for(var i=0; i<words.length; i++) { %>
+	            <%= words[i].word %>
+	            <%= words[i].language %>
+	        </br>
+		<% } %>
+	<% } %>
+</div>
+</body>
+</html>
