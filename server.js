@@ -8,10 +8,24 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
-var status = require('./app/models/status');
+app.set('views', './app/views');
+
+
+var env = require('dotenv').load();
+
+//Models
+var models = require("./app/models");
+ 
+//Sync Database
+models.sequelize.sync().then(function() {
+    console.log('Nice! Database looks fine') 
+}).catch(function(err) {
+    console.log(err, "Something went wrong with the Database Update!")
+});
+
 
 var public = express.Router();
-require('./app/routes/public.js')(public, status);
+require('./app/routes/languages.js')(public, models.languages);
 app.use('/', public);
 
 
