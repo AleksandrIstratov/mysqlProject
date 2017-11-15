@@ -1,9 +1,31 @@
 module.exports = function (router, languages) {
+
 	router.get('/', function(req, res){
 		languages.findAll().then( langs => {
 			res.render('languages.ejs', { languages: langs});
 		});
+	});
 
+	router.get('/id/:id', function(req, res){
+		languages.findOne({
+			where:{
+				'idlanguages': req.params.id
+			}
+		})
+		.then( langs => {
+			res.send(langs);
+		});
+	});
+
+	router.get('/lang/:lang', function(req, res){
+		languages.findOne({
+			where:{
+				'language': req.params.lang
+			}
+		})
+		.then( langs => {
+			res.send(langs);
+		});
 	});
 
 	router.post('/', function(req, res){
@@ -14,8 +36,18 @@ module.exports = function (router, languages) {
 			languages.findAll().then( langs => {
 				res.render('languages.ejs', { languages: langs});
 			});
+		});		
+	});
+
+	router.delete('/lang/:lang', function(req, res){
+		languages.destroy({
+			where:{
+				'language': req.params.lang
+			}
+		})
+		.then(lang => {
+			res.send({'deleted': lang});
 		});
-		
 	});
 
 }
