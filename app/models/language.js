@@ -12,5 +12,36 @@ module.exports = function(sequelize, Sequelize) {
         }
 	});
 
+    Language.getById = function(id, callback){
+        this
+        .findOne({
+            where:{
+                'idlanguages': id
+            }
+        })
+        .then( result => { callback(result) });
+    }
+
+    Language.getByLang = function(lang, callback){
+        this
+        .findOne({
+            where:{
+                'language': lang
+            }
+        })
+        .then( result => { callback(result) });
+    }
+
+    Language.delById = function(id, callback){
+        this
+        .findOne({
+            where:{
+                'idlanguages': id
+            }
+        })
+        .then( result => { callback(result) });
+    }
+
+
 	return Language;
 }

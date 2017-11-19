@@ -7,25 +7,15 @@ module.exports = function (router, languages) {
 	});
 
 	router.get('/id/:id', function(req, res){
-		languages.findOne({
-			where:{
-				'idlanguages': req.params.id
-			}
+		languages.getById(req.params.id, function(langs){ 
+			res.send(langs)
 		})
-		.then( langs => {
-			res.send(langs);
-		});
 	});
 
 	router.get('/lang/:lang', function(req, res){
-		languages.findOne({
-			where:{
-				'language': req.params.lang
-			}
+		languages.getByLang(req.params.lang, function(langs){ 
+			res.send(langs)
 		})
-		.then( langs => {
-			res.send(langs);
-		});
 	});
 
 	router.post('/', function(req, res){
