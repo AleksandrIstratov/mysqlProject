@@ -32,6 +32,14 @@ module.exports = function(sequelize, Sequelize) {
         .then( result => { callback(result) });
     }
 
+    Language.getAllLanguages = function(callback){
+    	this
+    	.findAll()
+    	.then( (languages) => {
+    		callback(languages);
+    	});
+    }
+
     Language.delById = function(id, callback){
         this
         .findOne({
@@ -40,6 +48,13 @@ module.exports = function(sequelize, Sequelize) {
             }
         })
         .then( result => { callback(result) });
+    }
+
+    Language.addLanguage = function(language, callback){
+    	this
+    	.create(language).then( (newLanguage) => {
+    		callback(newLanguage);
+    	});
     }
 
 
