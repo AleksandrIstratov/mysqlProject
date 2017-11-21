@@ -24,9 +24,13 @@ models.sequelize.sync().then(function() {
 });
 
 
-var public = express.Router();
-require('./app/routes/languages.js')(public, models.languages);
-app.use('/', public);
+var languages = express.Router();
+require('./app/routes/languages.js')(languages, models.languages);
+app.use('/languages', languages);
+
+var words = express.Router();
+require('./app/routes/words.js')(words, models.words);
+app.use('/words', words);
 
 
 // var admin = express.Router();

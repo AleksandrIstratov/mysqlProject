@@ -19,25 +19,23 @@ module.exports = function(sequelize, Sequelize) {
                 'idlanguages': id
             }
         })
-        .then( result => { callback(result) });
+        .then(result => callback(result));
     }
 
     Language.getByLang = function(lang, callback){
-        this
+        Language
         .findOne({
             where:{
                 'language': lang
             }
         })
-        .then( result => { callback(result) });
+        .then(result => callback(result));
     }
 
-    Language.getAllLanguages = function(callback){
-    	this
+    Language.getAllLanguages = callback => {
+    	Language
     	.findAll()
-    	.then( (languages) => {
-    		callback(languages);
-    	});
+    	.then(result => callback(result));
     }
 
     Language.delById = function(id, callback){
@@ -47,14 +45,13 @@ module.exports = function(sequelize, Sequelize) {
                 'idlanguages': id
             }
         })
-        .then( result => { callback(result) });
+        .then(result => callback(result));
     }
 
     Language.addLanguage = function(language, callback){
     	this
-    	.create(language).then( (newLanguage) => {
-    		callback(newLanguage);
-    	});
+    	.create(language)
+    	.then(result => callback(result));
     }
 
 

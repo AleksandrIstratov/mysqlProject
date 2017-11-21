@@ -12,7 +12,35 @@ module.exports = (sequelize, Sequelize) => {
 	    }    
 	});
 
-	Word.belongsTo(sequelize.model('languages'));
+	Word.belongsTo(
+		sequelize.model('languages'), 
+		{ foreignKey: 'idlanguage' }
+	);
+
+	Word.addWord = (word, callback) => {
+    	Word
+    		.create(word, {
+				include: [{ 
+					model: sequelize.model('languages'), 
+					foreignKey: 'idlanguage', 
+					as: 'language' 
+				}]
+			})
+    		.then(result => callback(result));
+    }
+
+
+    Word.getAllWords = callback => {
+    	Word
+	    	.findAll({
+	    		include: [{ 
+	    			model: sequelize.model('languages'), 
+	    			foreignKey: 'idlanguage', 
+	    			as: 'language' 
+	    		}]
+	    	})
+	    	.then(result => callback(result));
+    }
 
 	return Word;
 }
