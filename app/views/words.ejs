@@ -1,23 +1,26 @@
 <!doctype html>
 <html>
+
 <head>
-	<title>Node Authentication</title>
-	<style>
-		body 		{ padding-top:80px; }
-	</style>
+    <title>Node Authentication</title>
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
 </head>
+
 <body>
-	<form method="post" action="/words">
-		<input type='text' size='20' name='language'>
-		<input type="submit" value="submit">
-	</form>
-	</br>
-	<% for(var i=0; i<words.length; i++) { %>
+    <form method="post" action="/words">
+        <input type='text' size='20' name='language'>
+        <input type="submit" value="submit">
+    </form>
+    </br>
+    <% for(var i=0; i<words.length; i++) { %>
         <%= words[i].word %>
-        -
-        <%= words[i].language.language %>
-    	</br>   	
-	<% } %>
-</div>
+            <%= words[i].Language.language %>
+                </br>
+                <% } %>
 </body>
+
 </html>
