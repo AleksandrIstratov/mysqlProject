@@ -6,19 +6,10 @@ module.exports = function(router, models) {
         // });
 
         const word = models.words;
-        word.findAll({ include: [{ model: models.languages, as: 'Language' }] }).then(result => {
-            console.log(result);
-            res.render('words.ejs', { words: result });
-        })
-
-
-
-
-
-
-
-
-
+        word.findAll({ include: [{ model: models.languages, as: 'Language' }] })
+            .then(result => {
+                res.render('words.ejs', { words: result });
+            })
     });
 
     // router.get('/id/:id', (req, res) => {
@@ -33,28 +24,34 @@ module.exports = function(router, models) {
     // 	})
     // });
 
-    router.post('/', (req, res) => {
-        const word = models.words.build({ word: 'newWord' });
-        console.log(Object.keys(word));
-        models.languages.getByLang('pl', lang => {
-            word.setLanguage(lang, { save: false });
-            word.save()
-                .then((result) => { res.send(result) });
-            // models.words.addWord(data, result => {
-            //     models.words.setidlanguage = lang.idlanguages;
-            //     res.send(result);
-            // });
-        });
+    router.post('/add', (req, res) => {
+        models.words.findAndCountAll({
+                where: { word: req.body.word },
+                include: [{
+                    model: models.languages,
+                    as: 'Language',
+                    where: { language: req.body.language }
+                }]
+            })
+            .then(result => { result.count > 0 ? res.send(result.rows) : {} });
 
-        // router.delete('/lang/:lang', (req, res) => {
-        // 	languages.destroy({
-        // 		where:{
-        // 			'language': req.params.lang
-        // 		}
-        // 	})
-        // 	.then(lang => {
-        // 		res.send({'deleted': lang});
-        // 	});
+        const word = models.words.build({ word: req.body.word });
+        models.languages.findOne({ where: { language: req.body.language } })
+            .then(language => {
+                word.setLanguage(language, { save: false });
+                word.save()
+                    .then(result => { res.send(result) });
+            });
     });
+
+    // router.delete('/lang/:lang', (req, res) => {
+    // 	languages.destroy({
+    // 		where:{
+    // 			'language': req.params.lang
+    // 		}
+    // 	})
+    // 	.then(lang => {
+    // 		res.send({'deleted': lang});
+    // 	});
 
 }

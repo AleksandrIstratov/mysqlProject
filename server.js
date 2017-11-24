@@ -25,7 +25,7 @@ models.sequelize.sync().then(function() {
 
 
 var languages = express.Router();
-require('./app/routes/languages.js')(languages, models.languages);
+require('./app/routes/languages.js')(languages, models);
 app.use('/languages', languages);
 
 var words = express.Router();

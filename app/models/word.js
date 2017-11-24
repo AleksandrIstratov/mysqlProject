@@ -15,9 +15,6 @@ module.exports = (sequelize, Sequelize) => {
     Word.associate = models => {
         Word.belongsTo(models.languages, { as: 'Language', foreignKey: 'idlanguage' })
     };
-    // Word.belongsTo(
-    //     sequelize.model('languages'), { foreignKey: 'idlanguage' }
-    // );
 
     Word.addWord = (word, callback) => {
         Word
