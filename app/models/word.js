@@ -16,32 +16,5 @@ module.exports = (sequelize, Sequelize) => {
         Word.belongsTo(models.languages, { as: 'Language', foreignKey: 'idlanguage' })
     };
 
-    Word.addWord = (word, callback) => {
-        Word
-            .create(word, {
-                include: [{
-                    model: sequelize.model('languages'),
-                    foreignKey: 'idlanguage'
-                }]
-            })
-            .then(result => callback(result));
-    }
-
-
-    Word.getAllWords = callback => {
-        Word
-            .findAll({
-                include: [{
-                    model: sequelize.model('languages'),
-                    foreignKey: 'idlanguage',
-                    as: 'language'
-                }]
-            })
-            .then(result => {
-                console.log(result);
-                callback(result)
-            });
-    }
-
     return Word;
 }

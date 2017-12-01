@@ -3,25 +3,43 @@
 
 <head>
     <title>Node Authentication</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
             padding-top: 80px;
         }
     </style>
+    <script>
+        var del = function(id) {
+            var r = new XMLHttpRequest();
+            r.open("DELETE", "words/" + id, true);
+            r.onreadystatechange = function() {
+                if (r.readyState != 4 || r.status != 200) return;
+                console.log(r.responseText);
+                location.reload();
+            };
+            r.send();
+        }
+    </script>
 </head>
 
 <body>
-    <form method="post" action="/words/add">
+    <form method="post" action="/words">
         <input type='text' size='20' name='word'>
-        <input type='text' size='20' name='language'>
+        <select name="idLanguages">
+                <% for(var i=0; i<languages.length; i++) { %>
+                <option value="<%= languages[i].idlanguages %>"><%= languages[i].language %></option>
+                <% } %>
+            </select>
         <input type="submit" value="submit">
     </form>
-    </br>
     <% for(var i=0; i<words.length; i++) { %>
-        <%= words[i].word %>
-            <%= words[i].Language.language %>
-                </br>
-                <% } %>
+        <div>
+            <%= words[i].word %>
+                <%= words[i].Language.language %>
+                    <BUTTON onclick="del('<%= words[i].idWords %>')"><i class="material-icons">delete</i></BUTTON>
+        </div>
+        <% } %>
 </body>
 
 </html>
